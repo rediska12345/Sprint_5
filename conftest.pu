@@ -1,43 +1,42 @@
 import pytest
-import requests
+import random
+import string
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import locators
 
-from curl import *
-from data import Credentials
-from locators import Locators
-
-# session, module, class, function
 @pytest.fixture(scope="function")
 def driver():
-    options = Options()
-    options.add_argument("--window-size=1600,900")
-    options.add_experimental_option("prefs", {
-            "profile.password_manager_leak_detection": False
-        })
-    #options.add_argument("--headless")
-    driver = webdriver.Chrome(options=options)
-    driver.get(main sait)
+    """Фикстура для создания и закрытия драйвера"""
+    chrome_options = Options()
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.maximize_window()
     driver.implicitly_wait(10)
+    
     yield driver
     driver.quit()
 
 @pytest.fixture
-def valid_email():
-    return generate_email()
+def generate_email():
+    """Генератор уникальных email"""
+    def _generator(domain="stellarburgers.test"):
+        login = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+        return f"{login}@{domain}"
+    return _generator
 
 @pytest.fixture
-def valid_password():
-    return generate_valid_password()
+def generate_password():
+    """Генератор паролей разной длины"""
+    def _generator(min_length=6):
+        return ''.join(random.choices(string.ascii_letters + string.digits, k=min_length))
+    return _generator
 
 @pytest.fixture
-def invalid_password():
-    return generate_invalid_password()
-
-@pytest.fixture
-def test_user_data(valid_email, valid_password):
-    return {
-        "email": valid_email,
-        "password": valid_password,
-        "name": fake.first_name()
-    }
+def wait(driver):
+    """Фикстура для явного ожидания"""
+    return WebDriverWait(driver, 10)
