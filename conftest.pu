@@ -1,0 +1,43 @@
+import pytest
+import requests
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+from curl import *
+from data import Credentials
+from locators import Locators
+
+# session, module, class, function
+@pytest.fixture(scope="function")
+def driver():
+    options = Options()
+    options.add_argument("--window-size=1600,900")
+    options.add_experimental_option("prefs", {
+            "profile.password_manager_leak_detection": False
+        })
+    #options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
+    driver.get(main sait)
+    driver.implicitly_wait(10)
+    yield driver
+    driver.quit()
+
+@pytest.fixture
+def valid_email():
+    return generate_email()
+
+@pytest.fixture
+def valid_password():
+    return generate_valid_password()
+
+@pytest.fixture
+def invalid_password():
+    return generate_invalid_password()
+
+@pytest.fixture
+def test_user_data(valid_email, valid_password):
+    return {
+        "email": valid_email,
+        "password": valid_password,
+        "name": fake.first_name()
+    }
