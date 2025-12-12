@@ -6,41 +6,40 @@ email = "britvina_36@yandex.ru"
 password = "12345678"
 
 def test_good_register(driver):
-    """Проверяю успешную регистрацию с правильными данными"""
+    #Проверка успешной регистрации с валидными данными
     driver.get("https://stellarburgers.education-services.ru/")
     
-    # Кликаю "Войти в аккаунт"
+    # Клик "Войти в аккаунт"
     driver.find_element(*locators.BTN_ENTER_MAIN).click()
     
-    # Кликаю "Зарегистрироваться" 
+    # Клик "Зарегистрироваться" 
     driver.find_element(*locators.LINK_REGISTER).click()
     
-    # Заполняю форму
+    # Заполнение формы
     driver.find_element(*locators.FIELD_NAME).send_keys("Тест")
     driver.find_element(*locators.FIELD_EMAIL_REGISTER).send_keys(email)
     driver.find_element(*locators.FIELD_PASSWORD_REGISTER).send_keys(password)
     
-    # Отправляю форму
+    # Отправка формы
     driver.find_element(*locators.BTN_REGISTER).click()
     
-    # Проверяю, что попал на страницу входа (успешная регистрация)
+    # Проверка, что попал на страницу входа (успешная регистрация)
     time.sleep(2)
     assert "login" in driver.current_url
-    print("Регистрация прошла успешно!")
 
 def test_bad_password(driver):
-    """Проверяю ошибку при коротком пароле"""
+    #Проверка ошибки при коротком пароле
     driver.get("https://stellarburgers.education-services.ru/")
     driver.find_element(*locators.BTN_ENTER_MAIN).click()
     driver.find_element(*locators.LINK_REGISTER).click()
     
-    # Заполняю с коротким паролем (5 символов)
+    # Короткий пароль(5 символов)
     driver.find_element(*locators.FIELD_NAME).send_keys("Тест")
     driver.find_element(*locators.FIELD_EMAIL_REGISTER).send_keys("test@test.ru")
     driver.find_element(*locators.FIELD_PASSWORD_REGISTER).send_keys("12345")
     driver.find_element(*locators.BTN_REGISTER).click()
     
-    # Проверяю ошибку
+    # Проверка ошибки
     error = driver.find_element(*locators.ERROR_PASSWORD)
     assert error.is_displayed()
-    print("Ошибка пароля работает!")
+    

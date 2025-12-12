@@ -6,7 +6,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 @pytest.fixture
 def driver():
     service = FirefoxService(GeckoDriverManager().install())
+    driver.add_argument("--window-size=1600,900")
     driver = webdriver.Firefox(service=service)
-    driver.maximize_window()  # делаем окно большим
-    yield driver  # передаём браузер в тест
-    driver.quit()  # закрываем браузер после теста
+    yield driver
+    driver.quit()

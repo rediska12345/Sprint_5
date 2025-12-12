@@ -2,20 +2,17 @@ import locators
 from conftest import driver
 
 def test_constructor_tabs(driver):
-    """Проверяю все вкладки конструктора"""
+    #Проверка вкладок конструктора
     driver.get("https://stellarburgers.education-services.ru/")
     
-    # Кликаю Булки
+    # Клик Булки
     driver.find_element(*locators.TAB_BUNS).click()
     time.sleep(1)
-    print("Булки открылись!")
     
-    # Кликаю Соусы
+    # Клик Соусы
     driver.find_element(*locators.TAB_SAUCES).click()
     time.sleep(1)
-    print("Соусы открылись!")
     
-    # Кликаю Начинки
+    # Клик Начинки
     driver.find_element(*locators.TAB_FILLINGS).click()
     time.sleep(1)
-    print("Начинки открылись!")
