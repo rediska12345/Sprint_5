@@ -1,30 +1,30 @@
 from selenium.webdriver.common.by import By
 
 # Главная страница
-BTN_ENTER_MAIN = (By.XPATH, "//button[text()='Войти в аккаунт']")
-LOGO = (By.CLASS_NAME, "AppHeader_logo")  # логотип вверху
+MAIN_LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти в аккаунт']")
+MAIN_PERSONAL_BUTTON = (By.XPATH, "//a[@href='/account']")
+LOGO = (By.XPATH, "//a[@href='/']")
 
-# Шапка сайта
-BTN_PERSONAL_CABINET = (By.XPATH, "//p[text()='Личный Кабинет']")
-BTN_CONSTRUCTOR = (By.XPATH, "//p[text()='Конструктор']")
+# Страница входа
+LOGIN_EMAIL = (By.ID, "email")
+LOGIN_PASSWORD = (By.ID, "password")
+LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти']")
+REGISTER_LINK = (By.LINK_TEXT, "Зарегистрироваться")
+FORGOT_LINK = (By.LINK_TEXT, "Восстановить пароль")
 
-# Форма входа
-FIELD_EMAIL_LOGIN = (By.ID, "email")  # поле email для входа
-FIELD_PASSWORD_LOGIN = (By.ID, "Пароль")  # поле пароль для входа
-BTN_LOGIN = (By.XPATH, "//button[text()='Войти']")
-
-# Форма регистрации  
-FIELD_NAME = (By.ID, "Имя")  # поле Имя
-FIELD_EMAIL_REGISTER = (By.ID, "email")  # поле Email регистрации
-FIELD_PASSWORD_REGISTER = (By.ID, "Пароль")  # поле Пароль регистрации
-BTN_REGISTER = (By.XPATH, "//button[text()='Зарегистрироваться']")
-ERROR_PASSWORD = (By.XPATH, "//p[contains(text(),'Некорректный пароль')]")
+# Страница регистрации
+REG_NAME = (By.ID, "name")
+REG_EMAIL = (By.ID, "email")
+REG_PASSWORD = (By.ID, "password")
+REG_BUTTON = (By.XPATH, "//button[text()='Зарегистрироваться']")
+LOGIN_FROM_REG = (By.LINK_TEXT, "Войти")
+PASSWORD_ERROR = (By.XPATH, "//label[@class='input__error input__error_visible']")
 
 # Личный кабинет
-BTN_LOGOUT = (By.XPATH, "//button[text()='Выход']")
-HEADER_PROFILE = (By.XPATH, "//h2[text()='Профиль']")
+CABINET_CONSTRUCTOR = (By.XPATH, "//a[@href='/']")
+LOGOUT_BUTTON = (By.XPATH, "//button[text()='Выход']")
 
-# Конструктор бургера
-TAB_BUNS = (By.XPATH, "//span[text()='Булки']")
-TAB_SAUCES = (By.XPATH, "//span[text()='Соусы']") 
-TAB_FILLINGS = (By.XPATH, "//span[text()='Начинки']")
+# Конструктор
+BUNS_TAB = (By.XPATH, "//span[text()='Булки']")
+SAUCES_TAB = (By.XPATH, "//span[text()='Соусы']")
+FILLINGS_TAB = (By.XPATH, "//span[text()='Начинки']")

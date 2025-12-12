@@ -1,41 +1,72 @@
-import locators
-from conftest import driver
+import pytest
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from pages.locators import *
+from helper import make_email, make_password
 
-email = "britvina_36@yandex.ru"
-password = "12345678"
-
-def login(driver):
-    #Просто вход
-    driver.find_element(*locators.FIELD_EMAIL_LOGIN).send_keys(email)
-    driver.find_element(*locators.FIELD_PASSWORD_LOGIN).send_keys(password)
-    driver.find_element(*locators.BTN_LOGIN).click()
-    time.sleep(2)
+URL = "https://stellarburgers.education-services.ru/"
+EMAIL = "britvina_36@yandex.ru"
+PASS = "12345678"
 
 def test_login_main_button(driver):
-    #Вход через кнопку на главной
-    driver.get("https://stellarburgers.education-services.ru/")
-    driver.find_element(*locators.BTN_ENTER_MAIN).click()
-    login(driver)
-    assert "constructor" in driver.current_url
+    #Вход по кнопке «Войти в аккаунт» на главной
+    driver.get(URL)
+    driver.find_element(MAIN_LOGIN_BUTTON).click()
+    driver.find_element(LOGIN_EMAIL).send_keys(EMAIL)
+    driver.find_element(LOGIN_PASSWORD).send_keys(PASS)
+    driver.find_element(LOGIN_BUTTON).click()
+    assert "/account" in driver.current_url
 
 def test_login_personal_cabinet(driver):
-    #Вход через Личный кабинет
-    driver.get("https://stellarburgers.education-services.ru/")
-    driver.find_element(*locators.BTN_PERSONAL_CABINET).click()
-    login(driver)
+    #Вход через кнопку «Личный кабинет»
+    driver.get(URL)
+    driver.find_element(MAIN_PERSONAL_BUTTON).click()
+    driver.find_element(LOGIN_EMAIL).send_keys(EMAIL)
+    driver.find_element(LOGIN_PASSWORD).send_keys(PASS)
+    driver.find_element(LOGIN_BUTTON).click()
+    assert "/account" in driver.current_url
 
 def test_login_from_register(driver):
-    #Вход из формы регистрации
-    driver.get("https://stellarburgers.education-services.ru/")
-    driver.find_element(*locators.BTN_ENTER_MAIN).click()
-    driver.find_element(*locators.LINK_REGISTER).click()
-    driver.find_element(*locators.LINK_LOGIN_FROM_REGISTER).click()
-    login(driver)
+    #Вход через кнопку в форме регистрации
+    driver.get(f"{URL}login")
+    driver.find_element(REGISTER_LINK).click()
+    driver.find_element(LOGIN_FROM_REG).click()
+    driver.find_element(LOGIN_EMAIL).send_keys(EMAIL)
+    driver.find_element(LOGIN_PASSWORD).send_keys(PASS)
+    driver.find_element(LOGIN_BUTTON).click()
+    assert "/account" in driver.current_url
 
-def test_login_from_recovery(driver):
-    #Вход из формы восстановления пароля
-    driver.get("https://stellarburgers.education-services.ru/")
-    driver.find_element(*locators.BTN_ENTER_MAIN).click()
-    driver.find_element(*locators.LINK_RECOVERY).click()
-    driver.find_element(*locators.LINK_LOGIN_FROM_RECOVERY).click()
-    login(driver)
+def test_login_from_forgot_password(driver):
+    #Вход через кнопку в форме восстановления пароля
+    driver.get(f"{URL}login")
+    driver.find_element(FORGOT_LINK).click()
+    driver.find_element(LOGIN_BUTTON).click()
+    driver.find_element(LOGIN_EMAIL).send_keys(EMAIL)
+    driver.find_element(LOGIN_PASSWORD).send_keys(PASS)
+    driver.find_element(LOGIN_BUTTON).click()
+    assert "/account" in driver.current_url
+
+def test_profile_transitions_and_logout(driver):
+    #Переход в ЛК"""
+    driver.get(URL)
+    driver.find_element(MAIN_LOGIN_BUTTON).click()
+    driver.find_element(LOGIN_EMAIL).send_keys(EMAIL)
+    driver.find_element(LOGIN_PASSWORD).send_keys(PASS)
+    driver.find_element(LOGIN_BUTTON).click()
+    assert "/account" in driver.current_url
+    
+    # Переход на Конструктор
+    driver.find_element(CABINET_CONSTRUCTOR).click()
+    assert URL in driver.current_url
+    
+    # Переход по логотипу
+    driver.find_element(LOGO).click()
+    assert URL in driver.current_url
+    
+    # Выход (с главной заходим в ЛК и выходим)
+    driver.find_element(MAIN_LOGIN_BUTTON).click()
+    driver.find_element(LOGIN_EMAIL).send_keys(EMAIL)
+    driver.find_element(LOGIN_PASSWORD).send_keys(PASS)
+    driver.find_element(LOGIN_BUTTON).click()
+    driver.find_element(LOGOUT_BUTTON).click()
+    assert URL in driver.current_url
