@@ -1,32 +1,30 @@
 from selenium.webdriver.common.by import By
 
 # Главная страница
-MAIN_PAGE_LOGO = (By.XPATH, "//div[@class='ReactModalPortal']//img[@alt='Stellar Burgers']")
-LOGIN_BUTTON_HEADER = (By.XPATH, "//button[text()='Войти в аккаунт']")
-PERSONAL_CABINET_BUTTON = (By.XPATH, "//a[@href='/account']")
+BTN_ENTER_MAIN = (By.XPATH, "//button[text()='Войти в аккаунт']")
+LOGO = (By.CLASS_NAME, "AppHeader_logo")  # логотип вверху
 
-# Форма регистрации
-REGISTER_TAB = (By.XPATH, "//a[text()='Зарегистрироваться']")
-NAME_FIELD = (By.XPATH, "//input[@placeholder='Имя']")
-EMAIL_FIELD = (By.XPATH, "//input[@placeholder='Логин']")
-PASSWORD_FIELD = (By.XPATH, "//input[@placeholder='Пароль']")
-REGISTER_BUTTON = (By.XPATH, "//button[text()='Зарегистрироваться']")
+# Шапка сайта
+BTN_PERSONAL_CABINET = (By.XPATH, "//p[text()='Личный Кабинет']")
+BTN_CONSTRUCTOR = (By.XPATH, "//p[text()='Конструктор']")
 
 # Форма входа
-LOGIN_EMAIL_FIELD = (By.ID, "email")  # или XPATH "//input[@placeholder='Email']"
-LOGIN_PASSWORD_FIELD = (By.ID, "password")  # или XPATH "//input[@placeholder='Пароль']"
-LOGIN_SUBMIT_BUTTON = (By.XPATH, "//button[text()='Войти']")
+FIELD_EMAIL_LOGIN = (By.ID, "email")  # поле email для входа
+FIELD_PASSWORD_LOGIN = (By.ID, "Пароль")  # поле пароль для входа
+BTN_LOGIN = (By.XPATH, "//button[text()='Войти']")
 
-# Форма восстановления пароля
-RECOVER_PASSWORD_TAB = (By.XPATH, "//a[text()='Восстановить пароль']")
-RECOVER_EMAIL_FIELD = (By.ID, "email_recover")  # предположительный ID
-RECOVER_LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти']")  # в форме восстановления
+# Форма регистрации  
+FIELD_NAME = (By.ID, "Имя")  # поле Имя
+FIELD_EMAIL_REGISTER = (By.ID, "email")  # поле Email регистрации
+FIELD_PASSWORD_REGISTER = (By.ID, "Пароль")  # поле Пароль регистрации
+BTN_REGISTER = (By.XPATH, "//button[text()='Зарегистрироваться']")
+ERROR_PASSWORD = (By.XPATH, "//p[contains(text(),'Некорректный пароль')]")
 
 # Личный кабинет
-PROFILE_CONSTRUCTOR_BUTTON = (By.XPATH, "//button[text()='Конструктор']")
-LOGOUT_BUTTON = (By.XPATH, "//button[text()='Выход']")
+BTN_LOGOUT = (By.XPATH, "//button[text()='Выход']")
+HEADER_PROFILE = (By.XPATH, "//h2[text()='Профиль']")
 
-# Конструктор
-BUNS_TAB = (By.XPATH, "//span[text()='Булки']")
-SAUCES_TAB = (By.XPATH, "//span[text()='Соусы']")
-TOPPINGS_TAB = (By.XPATH, "//span[text()='Начинки']")
+# Конструктор бургера
+TAB_BUNS = (By.XPATH, "//span[text()='Булки']")
+TAB_SAUCES = (By.XPATH, "//span[text()='Соусы']") 
+TAB_FILLINGS = (By.XPATH, "//span[text()='Начинки']")

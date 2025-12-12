@@ -1,39 +1,45 @@
-import pytest
-import sys
-sys.path.append('..')
 import locators
+from conftest import driver
 
-url = "https://stellarburgers.education-services.ru/"
+email = "britvina_36@yandex.ru"
+password = "12345678"
 
-@pytest.mark.parametrize("way", [
-    "from_main",  # с главной
-    "from_profile",  # из личного кабинета
-])
-def test_login_ways(driver, make_email, make_password, way):
-    """Проверяем разные способы входа"""
-    driver.get(url)
-    
-    if way == "from_main":
-        driver.find_element(*locators.enter_button).click()
-    else:
-        driver.find_element(*locators.profile_link).click()
-    
-    # Вводим данные (сначала регистрируемся)
-    email = make_email()
-    password = make_password(6)
-    
-    # Регистрация для нового юзера
-    driver.find_element(*locators.register_link).click()
-    driver.find_element(*locators.name_input).send_keys("Тест")
-    driver.find_element(*locators.email_input).send_keys(email)
-    driver.find_element(*locators.pass_input).send_keys(password)
-    driver.find_element(*locators.register_btn).click()
-    
-    # Возвращаемся на вход и входим
-    driver.find_element(*locators.enter_button).click()
-    driver.find_element(*locators.login_email).send_keys(email)
-    driver.find_element(*locators.login_pass).send_keys(password)
-    driver.find_element(*locators.login_btn).click()
-    
-    assert "account" in driver.current_url
+def login(driver):
+    """Вспомогательная функция - просто вход"""
+    driver.find_element(*locators.FIELD_EMAIL_LOGIN).send_keys(email)
+    driver.find_element(*locators.FIELD_PASSWORD_LOGIN).send_keys(password)
+    driver.find_element(*locators.BTN_LOGIN).click()
+    time.sleep(2)
 
+def test_login_main_button(driver):
+    """Вход через кнопку на главной"""
+    driver.get("https://stellarburgers.education-services.ru/")
+    driver.find_element(*locators.BTN_ENTER_MAIN).click()
+    login(driver)
+    assert "constructor" in driver.current_url
+    print("✅ Вход с главной работает!")
+
+def test_login_personal_cabinet(driver):
+    """Вход через Личный кабинет"""
+    driver.get("https://stellarburgers.education-services.ru/")
+    driver.find_element(*locators.BTN_PERSONAL_CABINET).click()
+    login(driver)
+    print("✅ Вход через ЛК работает!")
+
+def test_login_from_register(driver):
+    """Вход из формы регистрации"""
+    driver.get("https://stellarburgers.education-services.ru/")
+    driver.find_element(*locators.BTN_ENTER_MAIN).click()
+    driver.find_element(*locators.LINK_REGISTER).click()
+    driver.find_element(*locators.LINK_LOGIN_FROM_REGISTER).click()
+    login(driver)
+    print("✅ Вход из регистрации работает!")
+
+def test_login_from_recovery(driver):
+    """Вход из формы восстановления пароля"""
+    driver.get("https://stellarburgers.education-services.ru/")
+    driver.find_element(*locators.BTN_ENTER_MAIN).click()
+    driver.find_element(*locators.LINK_RECOVERY).click()
+    driver.find_element(*locators.LINK_LOGIN_FROM_RECOVERY).click()
+    login(driver)
+    print("✅ Вход из восстановления работает!")

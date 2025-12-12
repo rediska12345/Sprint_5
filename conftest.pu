@@ -1,42 +1,13 @@
 import pytest
-import random
-import string
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import locators
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def driver():
-    """Фикстура для создания и закрытия драйвера"""
-    chrome_options = Options()
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    
-    driver = webdriver.Chrome(options=chrome_options)
-    driver.maximize_window()
-    driver.implicitly_wait(10)
-    
-    yield driver
-    driver.quit()
-
-@pytest.fixture
-def generate_email():
-    """Генератор уникальных email"""
-    def _generator(domain="stellarburgers.test"):
-        login = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
-        return f"{login}@{domain}"
-    return _generator
-
-@pytest.fixture
-def generate_password():
-    """Генератор паролей разной длины"""
-    def _generator(min_length=6):
-        return ''.join(random.choices(string.ascii_letters + string.digits, k=min_length))
-    return _generator
-
-@pytest.fixture
-def wait(driver):
-    """Фикстура для явного ожидания"""
-    return WebDriverWait(driver, 10)
+    # 🔥 Firefox вместо Chrome!
+    service = FirefoxService(GeckoDriverManager().install())
+    driver = webdriver.Firefox(service=service)
+    driver.maximize_window()  # делаем окно большим
+    yield driver  # передаём браузер в тест
+    driver.quit()  # закрываем браузер после теста
