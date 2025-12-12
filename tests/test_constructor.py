@@ -8,14 +8,14 @@ def test_constructor_tabs(driver):
     # Кликаю Булки
     driver.find_element(*locators.TAB_BUNS).click()
     time.sleep(1)
-    print("✅ Булки открылись!")
+    print("Булки открылись!")
     
     # Кликаю Соусы
     driver.find_element(*locators.TAB_SAUCES).click()
     time.sleep(1)
-    print("✅ Соусы открылись!")
+    print("Соусы открылись!")
     
     # Кликаю Начинки
     driver.find_element(*locators.TAB_FILLINGS).click()
     time.sleep(1)
-    print("✅ Начинки открылись!")
+    print("Начинки открылись!")

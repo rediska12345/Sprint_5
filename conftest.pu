@@ -5,7 +5,6 @@ from webdriver_manager.firefox import GeckoDriverManager
 
 @pytest.fixture
 def driver():
-    # 🔥 Firefox вместо Chrome!
     service = FirefoxService(GeckoDriverManager().install())
     driver = webdriver.Firefox(service=service)
     driver.maximize_window()  # делаем окно большим

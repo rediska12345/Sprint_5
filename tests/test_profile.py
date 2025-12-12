@@ -18,25 +18,25 @@ def test_go_to_profile(driver):
     login_to_profile(driver)
     profile_header = driver.find_element(*locators.HEADER_PROFILE)
     assert profile_header.is_displayed()
-    print("✅ Личный кабинет открывается!")
+    print("Личный кабинет открывается!")
 
 def test_logout(driver):
     """Выход из аккаунта"""
     login_to_profile(driver)
     driver.find_element(*locators.BTN_LOGOUT).click()
     assert "login" in driver.current_url
-    print("✅ Выход работает!")
+    print("Выход работает!")
 
 def test_profile_to_constructor(driver):
     """Из профиля в конструктор (кнопка)"""
     login_to_profile(driver)
     driver.find_element(*locators.BTN_CONSTRUCTOR).click()
     assert "constructor" in driver.current_url
-    print("✅ Из ЛК в конструктор!")
+    print("Из ЛК в конструктор!")
 
 def test_profile_to_logo(driver):
     """Из профиля в конструктор (логотип)"""
     login_to_profile(driver)
     driver.find_element(*locators.LOGO).click()
     assert "constructor" in driver.current_url
-    print("✅ Логотип ведёт в конструктор!")
+    print("Логотип ведёт в конструктор!")

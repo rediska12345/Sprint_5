@@ -17,14 +17,14 @@ def test_login_main_button(driver):
     driver.find_element(*locators.BTN_ENTER_MAIN).click()
     login(driver)
     assert "constructor" in driver.current_url
-    print("✅ Вход с главной работает!")
+    print("Вход с главной работает!")
 
 def test_login_personal_cabinet(driver):
     """Вход через Личный кабинет"""
     driver.get("https://stellarburgers.education-services.ru/")
     driver.find_element(*locators.BTN_PERSONAL_CABINET).click()
     login(driver)
-    print("✅ Вход через ЛК работает!")
+    print("Вход через ЛК работает!")
 
 def test_login_from_register(driver):
     """Вход из формы регистрации"""
@@ -33,7 +33,7 @@ def test_login_from_register(driver):
     driver.find_element(*locators.LINK_REGISTER).click()
     driver.find_element(*locators.LINK_LOGIN_FROM_REGISTER).click()
     login(driver)
-    print("✅ Вход из регистрации работает!")
+    print("Вход из регистрации работает!")
 
 def test_login_from_recovery(driver):
     """Вход из формы восстановления пароля"""
@@ -42,4 +42,4 @@ def test_login_from_recovery(driver):
     driver.find_element(*locators.LINK_RECOVERY).click()
     driver.find_element(*locators.LINK_LOGIN_FROM_RECOVERY).click()
     login(driver)
-    print("✅ Вход из восстановления работает!")
+    print("Вход из восстановления работает!")

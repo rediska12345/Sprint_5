@@ -26,7 +26,7 @@ def test_good_register(driver):
     # Проверяю, что попал на страницу входа (успешная регистрация)
     time.sleep(2)
     assert "login" in driver.current_url
-    print("✅ Регистрация прошла успешно!")
+    print("Регистрация прошла успешно!")
 
 def test_bad_password(driver):
     """Проверяю ошибку при коротком пароле"""
@@ -43,4 +43,4 @@ def test_bad_password(driver):
     # Проверяю ошибку
     error = driver.find_element(*locators.ERROR_PASSWORD)
     assert error.is_displayed()
-    print("✅ Ошибка пароля работает!")
+    print("Ошибка пароля работает!")
