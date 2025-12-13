@@ -34,3 +34,5 @@ def test_fillings_tab(driver):
     login_and_go_constructor(driver)
     driver.find_element(FILLINGS_TAB).click()
     assert driver.find_element(FILLINGS_TAB).is_displayed()
+
+    
