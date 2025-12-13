@@ -25,3 +25,4 @@ def test_bad_password(driver: WebDriver):
     driver.find_element(REG_BUTTON).click()
     error = WebDriverWait(driver, 5).until(EC.presence_of_element_located(PASSWORD_ERROR))
     assert "Некорректный пароль" in error.text #Проверка ошибки при пароле менее 6 знаков
+    
