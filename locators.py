@@ -28,3 +28,4 @@ LOGOUT_BUTTON = (By.XPATH, "//button[text()='Выход']")
 BUNS_TAB = (By.XPATH, "//span[text()='Булки']")
 SAUCES_TAB = (By.XPATH, "//span[text()='Соусы']")
 FILLINGS_TAB = (By.XPATH, "//span[text()='Начинки']")
+
