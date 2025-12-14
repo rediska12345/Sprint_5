@@ -70,3 +70,5 @@ def test_profile_transitions_and_logout(driver):
     driver.find_element(LOGIN_BUTTON).click()
     driver.find_element(LOGOUT_BUTTON).click()
     assert URL in driver.current_url
+
+    

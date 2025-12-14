@@ -15,3 +15,4 @@ def make_user():
         'email': make_email(),
         'password': make_password()
     } #Полные регистрационные данные
+
